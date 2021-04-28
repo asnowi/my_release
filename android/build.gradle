@@ -1,7 +1,13 @@
 buildscript {
-    ext.kotlin_version = '1.3.50'
+    ext.kotlin_version = '1.3.72'
     repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         google()
+        // jcenter()
+        mavenCentral()
+        maven{ url 'https://maven.aliyun.com/repository/releases'}
+        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+//        google()
         jcenter()
     }
 
@@ -14,7 +20,11 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        //jcenter()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        maven { url "https://jitpack.io" }
+        maven{ url 'https://maven.aliyun.com/repository/releases'}
+        maven { url "https://maven.goole.com" }
     }
 }
 

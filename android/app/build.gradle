@@ -24,9 +24,23 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+    useLibrary 'org.apache.http.legacy'
+
+    // Gradle Plugin 4.0 及以上
+    buildFeatures {
+        dataBinding = true
+    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -35,18 +49,107 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.maple.my_release"
-        minSdkVersion 16
-        targetSdkVersion 30
+        minSdkVersion 21
+        targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        multiDexEnabled true
+
+//        ndk {
+//            //选择要添加的对应cpu类型的.so库。
+//            abiFilters "armeabi-v7a" //,"armeabi" "arm64-v8a", "x86", "mips"
+//        }
+
     }
 
-    buildTypes {
+    // 开启 Java 8 支持
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+        /**
+         * Java源文件编码。
+         */
+        encoding "UTF-8"
+        incremental true
+    }
+
+    kotlinOptions {
+        jvmTarget = "${JavaVersion.VERSION_1_8}"
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file(keystoreProperties.RELEASE_STOREFILE)
+            storePassword keystoreProperties.RELEASE_STORE_PASSWORD
+            keyAlias keystoreProperties.RELEASE_KEY_ALIAS
+            keyPassword keystoreProperties.RELEASE_KEY_PASSWORD
+        }
+
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            storeFile file(keystoreProperties.RELEASE_STOREFILE)
+            storePassword keystoreProperties.RELEASE_STORE_PASSWORD
+            keyAlias keystoreProperties.RELEASE_KEY_ALIAS
+            keyPassword keystoreProperties.RELEASE_KEY_PASSWORD
+        }
+    }
+
+
+    buildTypes {
+
+        debug {
+            debuggable true
+            minifyEnabled false
             signingConfig signingConfigs.debug
         }
+
+        release {
+            debuggable false
+            //移除无用的资源文件
+            shrinkResources true
+            zipAlignEnabled true
+            minifyEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                def fileName = "app_V1.0.0_default.apk"
+                def date = new Date()
+                def formattedDate = date.format('yyyyMMdd')
+                if (variant.buildType.name.equals('release')) {
+                    fileName = "app_V${variant.mergedFlavor.versionName}_release_${formattedDate}.apk"
+                } else if (variant.buildType.name.equals('debug')) {
+                    fileName = "app_V${variant.mergedFlavor.versionName}_debug_${formattedDate}.apk"
+                }
+                outputFileName = fileName
+            }
+    }
+
+    //添加如下配置就ok了
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+        jumboMode = true
     }
 }
 
