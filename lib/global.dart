@@ -3,6 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
+import 'package:my_release/common/widget/dialog/loading.dart';
+import 'common/utils/utils.dart';
 
 ///全局配置
 class Global{
@@ -37,6 +40,29 @@ class Global{
       );
       SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     }
+
+    EasyLoading.instance
+      ..loadingStyle = EasyLoadingStyle.custom
+      ..maskColor = Colors.black
+      ..backgroundColor = Colors.black
+      ..indicatorColor = Colors.white
+      ..animationStyle = EasyLoadingAnimationStyle.opacity
+      ..textColor = Colors.white
+      ..indicatorType = EasyLoadingIndicatorType.circle
+      ..indicatorSize = 32
+      ..radius = 8
+      ..fontSize = 12
+      ..contentPadding = const EdgeInsets.symmetric(
+        vertical: 8,
+        horizontal: 16,
+      )
+      ..indicatorWidget = Container(
+        color: Colors.black,
+        width: 42,
+        height: 42,
+        child: Lottie.asset(AssetsProvider.lottiePath('loading')),
+      )
+      ..dismissOnTap = false;
 
   }
 

@@ -84,7 +84,10 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-
+  assets:
+    - assets/images/
+    - assets/json/
+    - assets/data/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
@@ -110,3 +113,22 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: iconfont
+      fonts:
+        - asset: assets/fonts/iconfont.ttf
+    - family: FZDaLTJ
+      fonts:
+        - asset: assets/fonts/fzDaLTJ.ttf
+    - family: FZFWQingYinTiJWL
+      fonts:
+        - asset: assets/fonts/fzFWQingYinTiJWL.ttf
+    - family: FZFWZhuZiAYuanJWM
+      fonts:
+        - asset: assets/fonts/fzFWZhuZiAYuanJWM.ttf
+    - family: SourceHanSans
+      fonts:
+        - asset: assets/fonts/sourceHanSansMedium.ttc
+    - family: Rzzyt
+      fonts:
+        - asset: assets/fonts/rzzyt.ttf
