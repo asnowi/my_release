@@ -1,13 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'common/widget/exception/exception.dart';
+import 'global.dart';
 
 
 Future<Null> main() async{
   // 初始化Exception 捕获配置
   ExceptionReportUtil.initExceptionCatchConfig();
 
-  runZonedGuarded(() {
+  runZonedGuarded(() async{
+    await Global.init();
     runApp(MyApp());
   }, (error, stackTrace) {
     // 这个闭包中发生的Exception是捕获不到的
