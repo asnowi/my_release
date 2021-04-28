@@ -34,8 +34,9 @@ class MyApp extends StatelessWidget {
           child: Container(
             child: TextButton(
               onPressed: (){
-                throw Exception('ssssssssss');
-              }, child: Text('点击'),
+                
+                
+              }, child: Image.asset('name'),
             )
           ),
         ),

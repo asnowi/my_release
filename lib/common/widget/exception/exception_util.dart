@@ -40,16 +40,17 @@ class ExceptionReportUtil {
         ),
         home: Scaffold(
           appBar: AppBar(
+            centerTitle: true,
             title: Text('Widget渲染异常！！！'),
           ),
-          body: _createBody(details),
+          body: _buildError(details),
         ),
       );
     };
   }
 
-  // 创建错误widget body
-  static Widget _createBody(dynamic details) {
+  // 创建错误widget
+  static Widget _buildError(dynamic details) {
     // 正确代码
     return Container(
       color: Colors.white,
