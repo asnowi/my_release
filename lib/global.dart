@@ -20,6 +20,8 @@ class Global{
 
   /// init
   static Future init() async{
+    // 运行初始
+    WidgetsFlutterBinding.ensureInitialized();
 
 
     //  android 状态栏为透明的沉浸
