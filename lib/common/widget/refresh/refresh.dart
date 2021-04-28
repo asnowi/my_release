@@ -13,7 +13,7 @@ class Refresh extends StatelessWidget {
   final bool enablePullDown;
   final bool enablePullUp;
 
-  Refresh({this.controller, this.onRefresh, this.onLoading, this.content,this.enablePullDown = true,this.enablePullUp = true});
+  Refresh({@required this.controller, @required this.onRefresh, @required this.onLoading, @required this.content,this.enablePullDown = true,this.enablePullUp = true});
 
   @override
   Widget build(BuildContext context) {
@@ -24,69 +24,11 @@ class Refresh extends StatelessWidget {
         child: ScrollConfiguration(
           behavior: OverScrollBehavior(),
           child: SmartRefresher(
-            controller: this.controller,
+            controller: this.controller!,
             enablePullDown: this.enablePullDown,
             enablePullUp: this.enablePullUp,
-            header: CustomHeader(
-              builder: (BuildContext context, RefreshStatus mode) {
-                Widget body = Container();
-                if (mode == RefreshStatus.canRefresh) {
-                  body = textIndicator("松开刷新");
-                } else if (mode == RefreshStatus.refreshing) {
-                  body = textIndicator("加载中...");
-                } else if (mode == RefreshStatus.idle) {
-                  body = textIndicator("下拉刷新");
-                } else if (mode == RefreshStatus.completed) {
-                  body = textIndicator("加载成功");
-                }
-                return Container(
-                  padding: EdgeInsets.only(top: 6,bottom: 10),
-                  height: 76,
-                  child: Center(
-                    child: body,
-                  ),
-                );
-              },
-            ),
-            footer: CustomFooter(
-              loadStyle: LoadStyle.ShowWhenLoading,
-              builder: (BuildContext context, LoadStatus mode) {
-                Widget body;
-                if (mode == LoadStatus.idle) {
-                  body = Text("上拉加载", style: TextStyle(fontSize: 12));
-                } else if (mode == LoadStatus.loading) {
-                  body = Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          child: CircularProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.grey),
-                            strokeWidth: 1.6,
-                          ),
-                          width: 12,
-                          height: 12,
-                        ),
-                        Padding(padding: EdgeInsets.only(left: 10)),
-                        Text("加载中...", style: TextStyle(fontSize: 12))
-                      ],
-                    ),
-                  );
-                } else if (mode == LoadStatus.failed) {
-                  body = Text("加载失败！点击重试！", style: TextStyle(fontSize: 12));
-                } else if (mode == LoadStatus.canLoading) {
-                  body = Text("松手,加载更多!", style: TextStyle(fontSize: 12));
-                } else {
-                  body = Text("没有更多数据了!", style: TextStyle(fontSize: 12));
-                }
-                return Container(
-                  height: 55,
-                  padding: EdgeInsets.only(top: 6,bottom: 10),
-                  child: Center(child: body),
-                );
-              },
-            ),
+            header: _buildHeader(),
+            footer: _buildFooter(),
             onRefresh: this.onRefresh,
             onLoading: this.onLoading,
             child: this.content,
@@ -101,7 +43,7 @@ class Refresh extends StatelessWidget {
     );
   }
 
-  Widget textIndicator(String statusStr) {
+  Widget buildTextIndicator(String statusStr) {
     return Container(
       child: Stack(
         children: [
@@ -124,4 +66,72 @@ class Refresh extends StatelessWidget {
       ),
     );
   }
+
+
+  Widget _buildHeader(){
+    return CustomHeader(
+      builder: (BuildContext context, RefreshStatus? mode) {
+        Widget body = buildTextIndicator('loading');
+        if (mode == RefreshStatus.canRefresh) {
+          body = buildTextIndicator("'松开刷新");
+        } else if (mode == RefreshStatus.refreshing) {
+          body = buildTextIndicator('加载中...');
+        } else if (mode == RefreshStatus.idle) {
+          body = buildTextIndicator('下拉刷新');
+        } else if (mode == RefreshStatus.completed) {
+          body = buildTextIndicator('加载成功');
+        }
+        return Container(
+          padding: EdgeInsets.only(top: 6,bottom: 10),
+          height: 76,
+          child: Center(
+            child: body,
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildFooter(){
+    return CustomFooter(
+      loadStyle: LoadStyle.ShowWhenLoading,
+      builder: (BuildContext context, LoadStatus? mode){
+        Widget body;
+        if (mode == LoadStatus.idle) {
+          body = Text('上拉加载', style: TextStyle(fontSize: 12));
+        } else if (mode == LoadStatus.loading) {
+          body = Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  child: CircularProgressIndicator(
+                    valueColor:
+                    AlwaysStoppedAnimation<Color>(Colors.grey),
+                    strokeWidth: 1.6,
+                  ),
+                  width: 12,
+                  height: 12,
+                ),
+                Padding(padding: EdgeInsets.only(left: 10)),
+                Text('加载中...', style: TextStyle(fontSize: 12))
+              ],
+            ),
+          );
+        } else if (mode == LoadStatus.failed) {
+          body = Text('加载失败！点击重试！', style: TextStyle(fontSize: 12));
+        } else if (mode == LoadStatus.canLoading) {
+          body = Text('松手,加载更多!', style: TextStyle(fontSize: 12));
+        } else {
+          body = Text('没有更多数据了!', style: TextStyle(fontSize: 12));
+        }
+        return Container(
+          height: 55.0,
+          padding: EdgeInsets.only(top: 6,bottom: 10),
+          child: Center(child: body),
+        );
+      },
+    );
+  }
+
 }

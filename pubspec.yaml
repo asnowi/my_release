@@ -32,7 +32,7 @@ dependencies:
   # 状态管理
   get: ^4.1.4
   # 权限申请
-  permission_handler: ^7.0.0
+  permission_handler: ^6.1.3
   # 设备信息
   device_info: ^2.0.0
   # 包信息
@@ -46,7 +46,8 @@ dependencies:
   # event bus
   event_bus: ^2.0.0
   # 下拉刷新
-  pull_to_refresh: ^1.6.5
+#  pull_to_refresh: ^1.6.5
+  pull_to_refresh: 1.6.4-nullsafety.0
   # 底部弹出框
   modal_bottom_sheet: ^2.0.0
   # loading dialog
@@ -87,7 +88,7 @@ flutter:
   assets:
     - assets/images/
     - assets/json/
-    - assets/data/
+    - assets/fonts/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
