@@ -34,9 +34,8 @@ class MyApp extends StatelessWidget {
           child: Container(
             child: TextButton(
               onPressed: (){
-                
-                
-              }, child: Image.asset('name'),
+
+              }, child: Text('按钮'),
             )
           ),
         ),
