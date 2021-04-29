@@ -9,7 +9,7 @@ class WelcomeController extends GetxController{
   final PageController pageController = PageController(
     initialPage: 0,
     //viewportFraction: 1,
-    //keepPage: true,
+    keepPage: true,
   );
 
   @override

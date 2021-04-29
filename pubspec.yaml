@@ -58,6 +58,8 @@ dependencies:
   hive_generator: ^1.1.0
   #  # 动画
   lottie: ^1.0.1
+  # image loader
+  cached_network_image: ^3.0.0
   # json解析
   json_annotation: ^4.0.1
 
