@@ -9,8 +9,8 @@ class HomeView extends GetView<HomeController>{
   final List<Widget> _pageList = [
     // MainView(),
     // MineView()
-    Container(child: Text('1'),),
-    Container(child: Text('2'),),
+    Container(alignment: Alignment.center,child: Text('1'),),
+    Container(alignment: Alignment.center,child: Text('2'),),
   ];
 
   final List<String> _textList= [
