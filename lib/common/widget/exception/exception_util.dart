@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:my_release/common/config/config.dart';
 import 'package:my_release/common/utils/log_util.dart';
+import 'package:my_release/common/utils/ui_util.dart';
 
 /// 工具类
 class ExceptionReportUtil {
@@ -34,14 +36,25 @@ class ExceptionReportUtil {
       LogUtils.GGQ('错误widget详细的错误信息为：' + details.toString());
 
       return MaterialApp(
-        title: 'Error Widget',
+        title: '页面错误',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
         home: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text('Widget渲染异常！！！'),
+            title: Text('~页面出错啦~',style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            leading: IconButton(
+              splashRadius: Config.backRadius,
+              onPressed: () {
+                UIUtil.popApp();
+              },
+              icon: Icon(
+                Icons.close_sharp,
+                color: Colors.white,
+              ),
+            ),
           ),
           body: _buildError(details),
         ),
@@ -56,11 +69,11 @@ class ExceptionReportUtil {
       color: Colors.white,
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(10),
           child: Text(
             details.toString(),
-            style: TextStyle(color: Colors.red),
-          ),
+            style: const TextStyle(color: Colors.black54),
+          )
         ),
       ),
     );

@@ -43,11 +43,7 @@ class _SplashViewState extends State<SplashView> {
     }else{
       //未通过,
       // 退出
-      popApp();
+      UIUtil.popApp();
     }
-  }
-
-  static Future<void> popApp() async {
-    await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
   }
 }

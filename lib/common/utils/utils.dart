@@ -9,4 +9,5 @@ export 'format.dart';
 export 'iconfont.dart';
 export 'image_loader.dart';
 export 'regex.dart';
+export 'ui_util.dart';
 export 'package:flutter_screenutil/flutter_screenutil.dart';
