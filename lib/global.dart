@@ -32,7 +32,7 @@ class Global{
     await StorageUtil.init();
 
     // 第一次打开应用
-    //hasHome = StorageUtil().getBool(SaveInfoKey.HAS_HOME)?? false;
+    hasHome = StorageUtil().getBool(SaveInfoKey.HAS_HOME)?? false;
     LogUtils.GGQ('--hasHome ->:${hasHome}');
     //  android 状态栏为透明的沉浸
     if (isAndroid) {

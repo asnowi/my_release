@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_release/common/config/const.dart';
 import 'package:my_release/common/router/router.dart';
 import 'package:my_release/common/utils/log_util.dart';
+import 'package:my_release/common/utils/storage.dart';
 import 'package:my_release/global.dart';
 
 class WelcomeController extends GetxController{
@@ -15,8 +17,8 @@ class WelcomeController extends GetxController{
   @override
   void onInit() {
     LogUtils.GGQ('onInit-->');
-   // Global.hasHome = true;
-   // StorageUtil().setBool(SaveInfoKey.HAS_HOME, true);
+    Global.hasHome = true;
+    StorageUtil().setBool(SaveInfoKey.HAS_HOME, true);
     LogUtils.GGQ('欢迎页-->${Global.hasHome}');
     super.onInit();
   }

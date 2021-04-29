@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_release/pages/home/home_controller.dart';
 import 'package:my_release/common/utils/utils.dart';
+import 'package:my_release/pages/main/main_view.dart';
+import 'package:my_release/pages/mine/mine_view.dart';
 
 class HomeView extends GetView<HomeController>{
 
 
   final List<Widget> _pageList = [
-    // MainView(),
-    // MineView()
-    Container(alignment: Alignment.center,child: Text('1'),),
-    Container(alignment: Alignment.center,child: Text('2'),),
+    MainView(),
+    MineView()
   ];
 
   final List<String> _textList= [
@@ -89,10 +89,10 @@ class HomeView extends GetView<HomeController>{
             children: <Widget>[
               Icon(controller.currentIndex == index ? _selectedIcon[index]: _defaultIcon[index],color: controller.currentIndex == index ? Colors.blue: Colors.black54,size: 19,),
               Text(_textList[index],style: TextStyle(
-                fontSize: 11.sp,
-                fontWeight: FontWeight.bold,
-                color: controller.currentIndex == index ? Colors.blue: Colors.black54,
-              )
+                  fontSize: 11.sp,
+                  fontWeight: FontWeight.bold,
+                  color: controller.currentIndex == index ? Colors.blue: Colors.black54,
+                )
               ),
             ],
           ),),
