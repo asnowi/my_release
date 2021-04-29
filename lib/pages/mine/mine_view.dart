@@ -24,35 +24,44 @@ class MineView extends GetView<MineController>{
         SliverAppBar(
           centerTitle: true,
           title: Text('title'),
-          collapsedHeight: 50.h,
           expandedHeight: 200.h,
         ),
         SliverToBoxAdapter(
           child: Container(
+            alignment: Alignment.center,
+            color: Colors.redAccent,
             height: 200.h,
             child: Text('body'),
           ),
         ),
         SliverToBoxAdapter(
           child: Container(
+            alignment: Alignment.center,
+            color: Colors.deepPurple,
             height: 200.h,
             child: Text('body'),
           ),
         ),
         SliverToBoxAdapter(
           child: Container(
+            alignment: Alignment.center,
+            color: Colors.blueGrey,
             height: 200.h,
             child: Text('body'),
           ),
         ),
         SliverToBoxAdapter(
           child: Container(
+            alignment: Alignment.center,
+            color: Colors.amber,
             height: 200.h,
             child: Text('body'),
           ),
         ),
         SliverToBoxAdapter(
           child: Container(
+            alignment: Alignment.center,
+            color: Colors.green,
             height: 200.h,
             child: Text('body'),
           ),
