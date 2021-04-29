@@ -11,7 +11,7 @@ class MainView extends GetView<MainController>{
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      child: Text('main'),
+      child: Text(controller.name),
     );
   }
 

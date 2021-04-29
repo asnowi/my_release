@@ -11,8 +11,9 @@ class MineView extends GetView<MineController>{
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      child: Text('mine'),
+      child: Text(controller.name),
     );
   }
+
 
 }

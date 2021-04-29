@@ -53,6 +53,7 @@ class HomeView extends GetView<HomeController>{
     return PageView(
       physics: NeverScrollableScrollPhysics(),
       controller: controller.pageController,
+      onPageChanged: (int v) =>controller.onPageChanged(v),
       children: _pageList,
     );
   }
