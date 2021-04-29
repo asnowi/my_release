@@ -1,8 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:my_release/common/utils/utils.dart';
-import 'package:my_release/common/widget/refresh/over_scroll_behavior.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:my_release/common/widget/refresh/index.dart';
 
 class Refresh extends StatelessWidget {
 

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:my_release/common/widget/refresh/index.dart';
+import 'package:my_release/pages/home/home_view.dart';
 import 'common/router/router.dart';
 import 'common/widget/dialog/loading.dart';
 import 'common/widget/exception/exception.dart';
@@ -16,15 +17,14 @@ Future<Null> main() async{
   ExceptionReportUtil.initExceptionCatchConfig();
 
   runZonedGuarded(() async{
-    await Global.init();
-    runApp(MyApp());
+    await Global.init().then((value) => runApp(MyApp()));
   }, (error, stackTrace) {
     // 这个闭包中发生的Exception是捕获不到的
     ExceptionReportChannel.reportException(error, stackTrace);
   }, zoneSpecification: ZoneSpecification(
     print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
       // 记录所有的打印日志
-      parent.print(zone, 'line是啥：${line}');
+      parent.print(zone, '记录所有的打印日志：${line}');
     },
   ));
 }
@@ -55,12 +55,11 @@ class MyApp extends StatelessWidget {
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
           unknownRoute: AppPages.unknownRoute,
-
           // locale: TranslationService.locale,
           // fallbackLocale: TranslationService.fallbackLocale,
           // translations: TranslationService(),
-          builder: EasyLoading.init(),
-
+          // builder: EasyLoading.init(),
+          builder: EasyLoading.init()
         ),
       ),
     );  }

@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
+import 'package:my_release/common/config/const.dart';
+import 'package:my_release/common/utils/storage.dart';
 import 'package:my_release/common/widget/dialog/loading.dart';
 import 'common/utils/utils.dart';
 
@@ -19,14 +21,19 @@ class Global{
   static bool isAndroid = Platform.isAndroid;
 
   /// 是否第一次打开
-  static bool isFirstOpen = false;
+  static bool hasHome = false;
 
   /// init
   static Future init() async{
     // 运行初始
     WidgetsFlutterBinding.ensureInitialized();
 
+    // 工具初始
+    await StorageUtil.init();
 
+    // 第一次打开应用
+    //hasHome = StorageUtil().getBool(SaveInfoKey.HAS_HOME)?? false;
+    LogUtils.GGQ('--hasHome ->:${hasHome}');
     //  android 状态栏为透明的沉浸
     if (isAndroid) {
       SystemUiOverlayStyle systemUiOverlayStyle =

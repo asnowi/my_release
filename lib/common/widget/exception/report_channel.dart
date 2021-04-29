@@ -9,9 +9,9 @@ class ExceptionReportChannel {
 
   // 上报异常
   static reportException(dynamic error, dynamic stack) {
-    LogUtils.GGQ('捕获的异常类型 >>> : ${error.runtimeType}');
+    // LogUtils.GGQ('捕获的异常类型 >>> : ${error.runtimeType}');
     LogUtils.GGQ('捕获的异常信息 >>> : $error');
-    LogUtils.GGQ('捕获的异常堆栈 >>> : $stack');
+    // LogUtils.GGQ('捕获的异常堆栈 >>> : $stack');
 
     Map reportMap = {
       'type': "${error.runtimeType}",
@@ -20,7 +20,6 @@ class ExceptionReportChannel {
     };
 
     // 得使用这个
-    LogUtils.GGQ('这是通过convert转的json');
     LogUtils.GGQ(jsonEncode(reportMap));
 
     _channel.invokeListMethod('reportException', reportMap);
