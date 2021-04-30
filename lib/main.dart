@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:my_release/common/res/res.dart';
 import 'package:my_release/common/widget/refresh/index.dart';
-import 'package:my_release/pages/home/home_view.dart';
 import 'common/router/router.dart';
 import 'common/widget/dialog/loading.dart';
 import 'common/widget/exception/exception.dart';
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         enableBallisticLoad: true, // trigger load more by BallisticScrollActivity
         child: GetMaterialApp(
           navigatorKey: navigatorKey,
-          title: '测试应用',
+          title: AppStrings.APP_TITLE,
           debugShowCheckedModeBanner: false,
           enableLog: true,
           // logWriterCallback: Logger.write,
