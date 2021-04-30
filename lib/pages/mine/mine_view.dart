@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_release/common/widget/dialog/loading.dart';
+import 'package:my_release/common/res/colors.dart';
+import 'package:my_release/common/res/res.dart';
+import 'package:my_release/common/router/router.dart';
 import 'package:my_release/pages/mine/mine_controller.dart';
 import 'package:my_release/common/utils/utils.dart';
 
@@ -19,63 +21,54 @@ class MineView extends GetView<MineController>{
   }
 
   Widget _buildContent(){
+
     return CustomScrollView(
       physics: BouncingScrollPhysics(),
       slivers: [
         SliverToBoxAdapter(
           child: Container(
-            color: Colors.blueGrey,
             alignment: Alignment.center,
-            height: 180.h,
+            height: 0.32.sh,
+            color: AppColors.main,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(AssetsProvider.imagePath('avatar_default')),
+                Container(
+                    constraints: BoxConstraints.expand(width: AppDimens.avatarSize,height: AppDimens.avatarSize),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(image: AssetImage(AssetsProvider.imagePath('avatar_default')),fit: BoxFit.fill),
+                      borderRadius: BorderRadius.circular(AppDimens.avatarSize/2),
+                      color: Colors.white
+                    ),
+                ),
               ],
             ),
           ),
         ),
+
         SliverToBoxAdapter(
           child: Container(
             alignment: Alignment.center,
-            color: Colors.redAccent,
-            height: 200.h,
-            child: Text('body'),
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: Container(
-            alignment: Alignment.center,
-            color: Colors.deepPurple,
-            height: 200.h,
-            child: Text('body'),
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: Container(
-            alignment: Alignment.center,
-            color: Colors.blueGrey,
-            height: 200.h,
-            child: Text('body'),
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: Container(
-            alignment: Alignment.center,
-            color: Colors.amber,
-            height: 200.h,
-            child: TextButton(onPressed: (){
-              LoadingDialog.show();
-            }, child: Text('按钮')),
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: Container(
-            alignment: Alignment.center,
-            color: Colors.white,
-            height: 200.h,
-            child: ImageLoader.load(url: 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'),
+            width: Get.width,
+            child: Wrap(
+              direction: Axis.vertical,
+              children: [
+                Container(height: 300.h),
+                ElevatedButton(onPressed: (){
+                  Get.toNamed(AppRoutes.login);
+                }, 
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(AppColors.main)
+                  ),  
+                  child: Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.symmetric(vertical: 12.h),
+                  width: 0.82.sw,
+                  child: Text('登录'),
+                )),
+              ],
+            ),
           ),
         ),
       ]

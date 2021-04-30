@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:my_release/common/config/const.dart';
+import 'package:my_release/common/db/db.dart';
 import 'package:my_release/common/utils/storage.dart';
 import 'package:my_release/common/widget/dialog/loading.dart';
 import 'common/utils/utils.dart';
@@ -22,6 +23,10 @@ class Global{
 
   /// 是否第一次打开
   static bool hasHome = false;
+
+  static DBUtil? dbUtil;
+
+  static User? userInfo;
 
   /// init
   static Future init() async{
