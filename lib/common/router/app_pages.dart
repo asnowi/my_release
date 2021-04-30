@@ -45,6 +45,7 @@ class AppPages {
       name: AppRoutes.login,
       binding: LoginBinding(),
       page: () => LoginView(),
+      transition: Transition.downToUp,
       transitionDuration: _transitionDuration,
     ),
   ];
