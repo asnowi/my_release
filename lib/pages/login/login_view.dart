@@ -108,13 +108,10 @@ class LoginView extends GetView<LoginController> {
             color: Colors.grey,
           ),
           prefixIcon: const Icon(Iconfont.phone,color: Colors.blue,size: 16),
-          suffixIcon: controller.hasAccountSuffixIcon? GestureDetector(
-            child: Icon(Iconfont.close,color: Colors.blue,size: 16),
-            onTap: (){
-              controller.accountController.clear();
-              controller.changeHasAccountSuffixIcon(false);
-            },
-          ): null,
+          suffixIcon: controller.hasAccountSuffixIcon? IconButton(icon: Icon(Iconfont.close,color: Colors.blue,size: 16), onPressed: (){
+            controller.accountController.clear();
+            controller.changeHasAccountSuffixIcon(false);
+          }):null,
           // contentPadding: EdgeInsets.all(10),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4),
@@ -139,14 +136,14 @@ class LoginView extends GetView<LoginController> {
             maxWidth: 0.82.sw
         ),
         child: GetBuilder<LoginController>(
-          id: controller.passwordController,
+          id: controller.ID_PASSWORD,
           builder: (_) =>TextField(
             controller: controller.passwordController,
             maxLines: 1,
             autocorrect: true,//是否自动更正
             // autofocus: true,//是否自动对焦
             textAlign: TextAlign.start,//文本对齐方式
-            obscureText: !controller.eyeAction,//是否是密码
+            obscureText: controller.hasEye,//是否是密码
             style: TextStyle(
               fontSize: 16,
               color: Colors.black87,
@@ -160,13 +157,10 @@ class LoginView extends GetView<LoginController> {
                 color: Colors.grey,
               ),
               prefixIcon: const Icon(Iconfont.pwd,color: Colors.blue,size: 16),
-              // suffixIcon: accountController.hasEye.value? Icon(accountController.eyeShow.value? Iconfont.eye_show: Iconfont.eye_hide,color: Colors.redAccent,size: 18):null,
-              suffixIcon: controller.hasEye? GestureDetector(
-                child: Icon(controller.eyeAction? Iconfont.eyeShow: Iconfont.eyeHide,color: Colors.blue,size: 16),
-                onTap: (){
-                  controller.setEyeAction();
-                },
-              ):null,
+                suffixIcon: controller.hasPasswordSuffixIcon? IconButton(
+                  icon: controller.hasEye? Icon(Iconfont.eyeHide,color: Colors.blue,size: 16): Icon(Iconfont.eyeShow,color: Colors.blue,size: 16), onPressed: (){
+                  controller.changeHasEye();
+                }):null,
               // contentPadding: EdgeInsets.all(10),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(4),
@@ -175,7 +169,8 @@ class LoginView extends GetView<LoginController> {
               fillColor: Colors.grey[100],
             ),
             onChanged: (text) {//内容改变的回调
-              controller.changeHasEye(text.isNotEmpty);
+              LogUtils.GGQ('密码->${text}');
+              controller.changeHasPasswordSuffixIcon(text.isNotEmpty);
             },
             onSubmitted: (text) {//内容提交(按回车)的回调
               LogUtils.GGQ('password onSubmitted:${text}');
@@ -188,42 +183,44 @@ class LoginView extends GetView<LoginController> {
   Widget _buildLogin(){
     return Container(
       width: 0.82.sw ,
-      child: ElevatedButton(onPressed: controller.hasLogin? (){
+      child: GetBuilder<LoginController>(
+        id: controller.ID_LOGIN,
+        builder: (_) =>ElevatedButton(onPressed: controller.isLogin? (){
+          if(!controller.isAgree){
+            ToastUtil.show('请您认真阅读并同意《用户使用协议》及《隐私条款》');
+            return;
+          }
 
-        if(!controller.isAgree){
-          ToastUtil.show('请您认真阅读并同意《用户使用协议》及《隐私条款》');
-          return;
-        }
-
-        if(!RegexUtils.isPhone(controller.accountController.text)){
-          ToastUtil.show('您输入的手机号格式不正确');
-          return;
-        }
-        // _onLogin(userNameController.text,passwordController.text);
-      }:null,
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.resolveWith((states){
-                if(states.contains(MaterialState.disabled)){
-                  return Colors.blue[100];
-                }
-                return Colors.blue;
-              })
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 12.h),
-            child: Text('登录',style: TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),),
-          )
+          if(!RegexUtils.isPhone(controller.accountController.text)){
+            ToastUtil.show('您输入的手机号格式不正确');
+            return;
+          }
+          controller.loginSubmit();
+        }:null,
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith((states){
+                  if(states.contains(MaterialState.disabled)){
+                    return Colors.blue[100];
+                  }
+                  return Colors.blue;
+                })
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 12.h),
+              child: Text('登录',style: TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),),
+            )
+        ),
       ),
     );
   }
 
   Widget _buildAgreement(){
     return Expanded(
-      flex: 1,
+      flex: 3,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20),
         alignment: Alignment.bottomCenter,
