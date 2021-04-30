@@ -9,7 +9,7 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false, // 解决键盘顶起页面
+      // resizeToAvoidBottomInset: false, // 解决键盘顶起页面
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
@@ -34,15 +34,20 @@ class LoginView extends GetView<LoginController> {
         ],
       ),
       body: Container(
-        alignment: Alignment.center,
         color: Colors.white,
-        child: Flex(
-          direction: Axis.vertical,
-          children: [
-            _buildTop(),
-            _buildContent(),
-            _buildAgreement()
-          ],
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Container(
+            height: Get.height - Get.statusBarHeight,
+            child: Flex(
+              direction: Axis.vertical,
+              children: [
+                _buildTop(),
+                _buildContent(),
+                _buildAgreement()
+              ],
+            ),
+          ),
         ),
       )
     );
@@ -70,7 +75,22 @@ class LoginView extends GetView<LoginController> {
           _buildInputPassword(),
           SizedBox(height: 30.h),
           _buildLogin(),
+          _buildForgotPassword(),
         ],
+      ),
+    );
+  }
+
+  Widget _buildForgotPassword(){
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+          maxWidth: 0.82.sw
+      ),
+      child: Container(
+        alignment: Alignment.centerRight,
+        child: TextButton(onPressed: (){
+          ToastUtil.show('忘记密码');
+        }, child: Text('忘记密码?',style: TextStyle(fontSize: 12,color: Colors.grey),)),
       ),
     );
   }
@@ -220,9 +240,9 @@ class LoginView extends GetView<LoginController> {
 
   Widget _buildAgreement(){
     return Expanded(
-      flex: 3,
+      flex: 1,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         alignment: Alignment.bottomCenter,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
