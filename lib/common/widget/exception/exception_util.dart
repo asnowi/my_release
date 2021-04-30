@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:my_release/common/config/config.dart';
+import 'package:my_release/common/res/res.dart';
 import 'package:my_release/common/utils/log_util.dart';
 import 'package:my_release/common/utils/ui_util.dart';
 
@@ -46,7 +46,7 @@ class ExceptionReportUtil {
             centerTitle: true,
             title: Text('~页面出错啦~',style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
             leading: IconButton(
-              splashRadius: Config.backRadius,
+              splashRadius: AppDimens.backRadius,
               onPressed: () {
                 UIUtil.popApp();
               },

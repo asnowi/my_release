@@ -60,7 +60,7 @@ class HomeView extends GetView<HomeController>{
 
   Widget _buildBottomAppBar(BuildContext context) {
     final itemWidth = Get.width / 2;
-    final itemHeight = 54.h;
+    final itemHeight = 50.h;
     return BottomAppBar(
       elevation: 4.4,
       child: Wrap(
@@ -86,7 +86,8 @@ class HomeView extends GetView<HomeController>{
           child: GetBuilder<HomeController>(
             id: controller.ID_BOTTOMAPPBAR,
             builder: (_) =>Column(
-            mainAxisSize: MainAxisSize.min,
+            // mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Icon(controller.currentIndex == index ? _selectedIcon[index]: _defaultIcon[index],color: controller.currentIndex == index ? Colors.blue: Colors.black54,size: 20,),
               Text(_textList[index],style: TextStyle(

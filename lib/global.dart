@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:my_release/common/config/const.dart';
+import 'package:my_release/common/db/db.dart';
 import 'package:my_release/common/utils/storage.dart';
 import 'package:my_release/common/widget/dialog/loading.dart';
 import 'common/utils/utils.dart';
@@ -23,6 +24,10 @@ class Global{
   /// 是否第一次打开
   static bool hasHome = false;
 
+  static DBUtil? dbUtil;
+
+  static User? userInfo;
+
   /// init
   static Future init() async{
     // 运行初始
@@ -32,7 +37,7 @@ class Global{
     await StorageUtil.init();
 
     // 第一次打开应用
-    hasHome = StorageUtil().getBool(SaveInfoKey.HAS_HOME)?? false;
+    hasHome = StorageUtil().getBool(SaveInfoKey.HAS_HOME)?? hasHome;
     LogUtils.GGQ('--hasHome ->:${hasHome}');
     //  android 状态栏为透明的沉浸
     if (isAndroid) {
@@ -69,7 +74,8 @@ class Global{
         height: 42,
         child: Lottie.asset(AssetsProvider.lottiePath('loading')),
       )
-      ..dismissOnTap = false;
+      // ..dismissOnTap = false;
+      ..dismissOnTap = true;
 
   }
 
