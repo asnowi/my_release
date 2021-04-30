@@ -13,7 +13,7 @@ class Refresh extends StatelessWidget {
   final bool enablePullDown;
   final bool enablePullUp;
 
-  Refresh({@required this.controller, @required this.onRefresh, @required this.onLoading, @required this.content,this.enablePullDown = true,this.enablePullUp = true});
+  const Refresh({@required this.controller, @required this.onRefresh, @required this.onLoading, @required this.content,this.enablePullDown = true,this.enablePullUp = true});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class Refresh extends StatelessWidget {
     );
   }
 
-  Widget buildTextIndicator(String statusStr) {
+  Widget _buildTextIndicator(String statusStr) {
     return Container(
       child: Stack(
         children: [
@@ -71,15 +71,15 @@ class Refresh extends StatelessWidget {
   Widget _buildHeader(){
     return CustomHeader(
       builder: (BuildContext context, RefreshStatus? mode) {
-        Widget body = buildTextIndicator('loading');
+        Widget body = _buildTextIndicator('loading');
         if (mode == RefreshStatus.canRefresh) {
-          body = buildTextIndicator("'松开刷新");
+          body = _buildTextIndicator("'松开刷新");
         } else if (mode == RefreshStatus.refreshing) {
-          body = buildTextIndicator('加载中...');
+          body = _buildTextIndicator('加载中...');
         } else if (mode == RefreshStatus.idle) {
-          body = buildTextIndicator('下拉刷新');
+          body = _buildTextIndicator('下拉刷新');
         } else if (mode == RefreshStatus.completed) {
-          body = buildTextIndicator('加载成功');
+          body = _buildTextIndicator('加载成功');
         }
         return Container(
           padding: EdgeInsets.only(top: 6,bottom: 10),
