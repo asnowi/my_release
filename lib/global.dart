@@ -69,7 +69,8 @@ class Global{
         height: 42,
         child: Lottie.asset(AssetsProvider.lottiePath('loading')),
       )
-      ..dismissOnTap = false;
+      // ..dismissOnTap = false;
+      ..dismissOnTap = true;
 
   }
 
