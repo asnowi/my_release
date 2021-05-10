@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_release/common/db/db.dart';
+import 'package:my_release/common/utils/log_util.dart';
 import 'package:my_release/common/utils/toast.dart';
+import 'package:my_release/global.dart';
 
 class LoginController extends GetxController{
 
@@ -56,8 +59,22 @@ class LoginController extends GetxController{
     update([ID_LOGIN]);
   }
 
-  void loginSubmit(){
-    ToastUtil.show('登录');
+  void loginSubmit() async{
+    User user = User()
+      ..phone = '13717591366'
+      ..token = 'tokenxx'
+      ..userId = 'userId001'
+      ..avatarImg = 'http://p1.music.126.net/GE2kVDwdVQyoNJC8k31mEA==/18979769718754963.jpg';
+
+    final result = await Global.dbUtil?.userBox?.add(user);
+    LogUtils.GGQ('reslut=>${result}');
+    if(result != null && result >= 0) {
+      ToastUtil.show('登录成功！');
+      Global.userInfo = user;
+      Get.back(result: true);
+    }else {
+      ToastUtil.show('登录xx！');
+    }
   }
 
 }

@@ -55,9 +55,14 @@ class MineView extends GetView<MineController>{
               direction: Axis.vertical,
               children: [
                 Container(height: 300.h),
-                ElevatedButton(onPressed: (){
-                  Get.toNamed(AppRoutes.login);
-                }, 
+                ElevatedButton(onPressed: () async{
+                  final result = await Get.toNamed(AppRoutes.login);
+                  if(result != null && result){
+                    ToastUtil.show('登录成功=>${result}');
+                  }else {
+                    ToastUtil.show('登录失败！！！');
+                  }
+                },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(AppColors.main)
                   ),  

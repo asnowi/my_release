@@ -39,6 +39,12 @@ class Global{
     // 第一次打开应用
     hasHome = StorageUtil().getBool(SaveInfoKey.HAS_HOME)?? hasHome;
     LogUtils.GGQ('--hasHome ->:${hasHome}');
+
+    // hive
+    await DBUtil.install();
+    dbUtil = await DBUtil.getInstance();
+    userInfo = dbUtil?.getCurrentUser();
+
     //  android 状态栏为透明的沉浸
     if (isAndroid) {
       SystemUiOverlayStyle systemUiOverlayStyle =
