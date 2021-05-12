@@ -1,9 +1,17 @@
 import 'package:get/get.dart';
+import 'package:my_release/common/db/db.dart';
 import 'package:my_release/common/utils/log_util.dart';
+import 'package:my_release/global.dart';
 
 class MineController extends SuperController{
 
+  final String ID_USER = 'user';
+
   final String name = 'mine';
+
+  User? _user;
+
+  User? get getUser => _user;
 
   @override
   void onInit() {
@@ -14,6 +22,10 @@ class MineController extends SuperController{
   @override
   void onReady() {
     LogUtils.GGQ('${name} ->> onReady');
+    _user = Global.userInfo;
+    if(_user != null) {
+      update([ID_USER]);
+    }
     super.onReady();
   }
 
