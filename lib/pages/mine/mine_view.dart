@@ -55,6 +55,9 @@ class MineView extends GetView<MineController>{
               direction: Axis.vertical,
               children: [
                 Container(height: 300.h),
+                TextButton(onPressed: (){
+                  Get.toNamed(AppRoutes.theme);
+                }, child: Text('theme')),
                 ElevatedButton(onPressed: () async{
                   final result = await Get.toNamed(AppRoutes.login);
                   if(result != null && result){

@@ -6,6 +6,8 @@ import 'package:my_release/pages/home/home_view.dart';
 import 'package:my_release/pages/login/login_binding.dart';
 import 'package:my_release/pages/login/login_view.dart';
 import 'package:my_release/pages/splash/splash_view.dart';
+import 'package:my_release/pages/theme/theme_binding.dart';
+import 'package:my_release/pages/theme/theme_view.dart';
 import 'package:my_release/pages/welcome/welcome_binding.dart';
 import 'package:my_release/pages/welcome/welcome_view.dart';
 class AppPages {
@@ -45,6 +47,13 @@ class AppPages {
       name: AppRoutes.login,
       binding: LoginBinding(),
       page: () => LoginView(),
+      // transition: Transition.downToUp,
+      transitionDuration: _transitionDuration,
+    ),
+    GetPage(
+      name: AppRoutes.theme,
+      binding: ThemeBinding(),
+      page: () => ThemeView(),
       // transition: Transition.downToUp,
       transitionDuration: _transitionDuration,
     ),
